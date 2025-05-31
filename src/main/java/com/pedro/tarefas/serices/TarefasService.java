@@ -1,6 +1,9 @@
 package com.pedro.tarefas.serices;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.pedro.tarefas.model.Tarefa;
@@ -17,6 +20,22 @@ public class TarefasService {
 
     public List<Tarefa> listAll() {
         return tarefaRepository.findAll();
+    }
+
+    public Tarefa create(Tarefa tarefa) {
+        if (tarefa.getStatus() == null || tarefa.getStatus().isEmpty()) {
+            tarefa.setStatus("To Do");
+        }
+        return tarefaRepository.save(tarefa);
+    }
+
+    public Optional<Tarefa> findById(Long id) {
+        return tarefaRepository.findById(id);
+    }
+
+    public Tarefa update(Tarefa tarefa) {
+        return tarefaRepository.save(tarefa);
+        
     }
 
 }
