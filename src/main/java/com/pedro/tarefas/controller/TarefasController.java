@@ -1,12 +1,12 @@
 package com.pedro.tarefas.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pedro.tarefas.model.Tarefa;
 import com.pedro.tarefas.serices.TarefasService;
 
 @RestController
@@ -20,7 +20,7 @@ public class TarefasController {
     }
 
     @GetMapping
-    public List<Map<String, Object>> list() {
+    public List<Tarefa> list() {
         return tarefaService.listAll();
     }
 
