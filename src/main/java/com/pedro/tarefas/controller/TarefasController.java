@@ -53,24 +53,17 @@ public class TarefasController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Tarefa> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Tarefa tarefa) {
-        return tarefaService.findById(id).map(updateTarefa -> {
-            updateTarefa.setTitle(tarefa.getTitle());
-            updateTarefa.setDescription(tarefa.getDescription());
-            updateTarefa.setStatus(tarefa.getStatus());
-            Tarefa updated = tarefaService.update(updateTarefa);
-            return ResponseEntity.ok().body(updated);
-        })
+        return tarefaService.update(id, tarefa)
+                .map(updatedTarefa -> ResponseEntity.ok().body(updatedTarefa))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
-
-        return tarefaService.findById(id).map(updateTarefa -> {
-            tarefaService.delete(id);
+        if (tarefaService.delete(id)) {
             return ResponseEntity.noContent().<Void>build();
-        }).orElse(ResponseEntity.notFound().build());
-
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }
