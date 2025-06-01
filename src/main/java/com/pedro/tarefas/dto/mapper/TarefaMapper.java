@@ -3,6 +3,7 @@ package com.pedro.tarefas.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.pedro.tarefas.dto.TarefaDTO;
+import com.pedro.tarefas.enums.Status;
 import com.pedro.tarefas.model.Tarefa;
 
 @Component
@@ -16,7 +17,7 @@ public class TarefaMapper {
                 tarefa.getId(),
                 tarefa.getTitle(),
                 tarefa.getDescription(),
-                tarefa.getStatus());
+                tarefa.getStatus().toString());
     }
 
     public Tarefa toEntity(TarefaDTO tarefaDTO) {
@@ -29,8 +30,24 @@ public class TarefaMapper {
         }
         tarefa.setTitle(tarefaDTO.title());
         tarefa.setDescription(tarefaDTO.description());
-        tarefa.setStatus(tarefaDTO.status());
+        tarefa.setStatus(converterStatusValue(tarefaDTO.status()));
         return tarefa;
+    }
+
+    public static Status converterStatusValue(String value) {
+        if (value == null) {
+            return null;
+        }
+        switch (value) {
+            case "To Do":
+                return Status.TO_DO;
+            case "In Progress":
+                return Status.IN_PROGRESS;
+            case "Done":
+                return Status.DONE;
+            default:
+                throw new IllegalArgumentException("Unknown status: " + value);
+        }
     }
 
 }

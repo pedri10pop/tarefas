@@ -10,6 +10,7 @@ import com.pedro.tarefas.dto.mapper.TarefaMapper;
 import com.pedro.tarefas.exception.RecordNotFoundException;
 import com.pedro.tarefas.model.Tarefa;
 import com.pedro.tarefas.repository.TarefasRepository;
+import static com.pedro.tarefas.dto.mapper.TarefaMapper.converterStatusValue;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -38,9 +39,6 @@ public class TarefasService {
 
         Tarefa tarefaEntity = tarefaMapper.toEntity(tarefa);
 
-        if (tarefaEntity.getStatus() == null || tarefaEntity.getStatus().isEmpty()) {
-            tarefaEntity.setStatus("To Do");
-        }
         return tarefaMapper.toDTO(tarefaRepository.save(tarefaEntity));
     }
 
@@ -54,7 +52,7 @@ public class TarefasService {
                 .map(existingTarefa -> {
                     existingTarefa.setTitle(tarefa.title());
                     existingTarefa.setDescription(tarefa.description());
-                    existingTarefa.setStatus(tarefa.status());
+                    existingTarefa.setStatus(converterStatusValue(tarefa.status()));
                     return tarefaRepository.save(existingTarefa);
                 }).map(tarefaMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(id));

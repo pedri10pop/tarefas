@@ -5,14 +5,17 @@ import java.util.Date;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 
+import com.pedro.tarefas.enums.Status;
+import com.pedro.tarefas.enums.converters.StatusConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
@@ -32,10 +35,9 @@ public class Tarefa {
     private String description;
 
     @NotNull
-    @NotBlank
-    @Length(max = 20)
-    @Pattern(regexp = "^(To Do|In Progress|Done)$", message = "Status must be one of: To Do, In Progress, Done")
-    private String status;
+    @Column(length = 20)
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.TO_DO;
 
     @CreatedDate
     private Date creationDate;

@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.pedro.tarefas.enums.Status;
 import com.pedro.tarefas.model.Tarefa;
 import com.pedro.tarefas.repository.TarefasRepository;
 
@@ -24,7 +25,7 @@ public class TarefasApplication {
 
 			t.setTitle("First Year Task");
 			t.setDescription("Test string for task");
-			t.setStatus("In Progress");
+			t.setStatus(Status.IN_PROGRESS);
 
 			tarefasRepository.save(t);
 		};
