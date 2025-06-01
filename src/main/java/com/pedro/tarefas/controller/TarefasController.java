@@ -3,7 +3,6 @@ package com.pedro.tarefas.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +39,8 @@ public class TarefasController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tarefa> findById(@PathVariable @NotNull @Positive Long id) {
-        return tarefaService.findById(id).map(tarefa -> ResponseEntity.ok().body(tarefa))
-                .orElse(ResponseEntity.notFound().build());
+    public Tarefa findById(@PathVariable @NotNull @Positive Long id) {
+        return tarefaService.findById(id);
     }
 
     @PostMapping
@@ -52,18 +50,14 @@ public class TarefasController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tarefa> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Tarefa tarefa) {
-        return tarefaService.update(id, tarefa)
-                .map(updatedTarefa -> ResponseEntity.ok().body(updatedTarefa))
-                .orElse(ResponseEntity.notFound().build());
+    public Tarefa update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Tarefa tarefa) {
+        return tarefaService.update(id, tarefa);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
-        if (tarefaService.delete(id)) {
-            return ResponseEntity.noContent().<Void>build();
-        }
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable @NotNull @Positive Long id) {
+        tarefaService.delete(id);
     }
 
 }
