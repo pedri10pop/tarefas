@@ -39,11 +39,11 @@ public class TarefaMapper {
             return null;
         }
         switch (value) {
-            case "To Do":
+            case "TO_DO":
                 return Status.TO_DO;
-            case "In Progress":
+            case "IN_PROGRESS":
                 return Status.IN_PROGRESS;
-            case "Done":
+            case "DONE":
                 return Status.DONE;
             default:
                 throw new IllegalArgumentException("Unknown status: " + value);
