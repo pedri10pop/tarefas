@@ -25,9 +25,30 @@ public class TarefasApplication {
 
 			t.setTitle("First Year Task");
 			t.setDescription("Test string for task");
-			t.setStatus(Status.IN_PROGRESS);
+			t.setStatus(Status.TO_DO);
+
+			Tarefa t2 = new Tarefa();
+
+			t2.setTitle("Second Year Task");
+			t2.setDescription("Test content");
+			t2.setStatus(Status.IN_PROGRESS);
+
+			Tarefa t3 = new Tarefa();
+
+			t3.setTitle("Third Year Task");
+			t3.setDescription("Test long content for task, this is a test string to check the length of the description field in the database.");
+			t3.setStatus(Status.DONE);
+
+			Tarefa t4 = new Tarefa();
+
+			t4.setTitle("Fourth Year Task");
+			t4.setDescription("Test fourth task description, this is a test string to check the length of the description field in the database.");
+			t4.setStatus(Status.DONE);
 
 			tarefasRepository.save(t);
+			tarefasRepository.save(t2);
+			tarefasRepository.save(t3);
+			tarefasRepository.save(t4);
 		};
 	}
 

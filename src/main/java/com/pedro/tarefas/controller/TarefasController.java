@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pedro.tarefas.dto.TarefaDTO;
+import com.pedro.tarefas.enums.Status;
 import com.pedro.tarefas.serices.TarefasService;
 
 import jakarta.validation.Valid;
@@ -34,8 +36,9 @@ public class TarefasController {
     }
 
     @GetMapping
-    public List<TarefaDTO> list() {
-        return tarefaService.listAll();
+    public List<TarefaDTO> list(
+            @RequestParam(name = "status", required = false) List<Status> statuses) {
+        return tarefaService.listAll(statuses);
     }
 
     @GetMapping("/{id}")

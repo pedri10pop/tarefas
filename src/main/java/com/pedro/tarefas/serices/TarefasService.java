@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.pedro.tarefas.dto.TarefaDTO;
 import com.pedro.tarefas.dto.mapper.TarefaMapper;
+import com.pedro.tarefas.enums.Status;
 import com.pedro.tarefas.exception.RecordNotFoundException;
 import com.pedro.tarefas.model.Tarefa;
 import com.pedro.tarefas.repository.TarefasRepository;
@@ -28,8 +29,16 @@ public class TarefasService {
         this.tarefaMapper = tarefaMapper;
     }
 
-    public List<TarefaDTO> listAll() {
-        List<Tarefa> tarefas = tarefaRepository.findAll();
+    public List<TarefaDTO> listAll(List<Status> statuses) {
+
+        List<Tarefa> tarefas;
+
+        if (statuses != null && !statuses.isEmpty()) {
+            tarefas = tarefaRepository.findByStatusIn(statuses);
+        } else {
+            tarefas = tarefaRepository.findAll();
+        }
+
         return tarefas.stream()
                 .map(tarefaMapper::toDTO)
                 .toList();
