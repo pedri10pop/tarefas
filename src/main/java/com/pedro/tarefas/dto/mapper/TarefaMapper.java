@@ -17,7 +17,8 @@ public class TarefaMapper {
                 tarefa.getId(),
                 tarefa.getTitle(),
                 tarefa.getDescription(),
-                tarefa.getStatus().toString());
+                tarefa.getStatus().toString(),
+                tarefa.getCreationDate());
     }
 
     public Tarefa toEntity(TarefaDTO tarefaDTO) {

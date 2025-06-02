@@ -1,9 +1,9 @@
 package com.pedro.tarefas.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.annotation.CreatedDate;
 
 import com.pedro.tarefas.enums.Status;
 import com.pedro.tarefas.enums.converters.StatusConverter;
@@ -39,6 +39,7 @@ public class Tarefa {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.TO_DO;
 
-    @CreatedDate
-    private Date creationDate;
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime creationDate;
 }
