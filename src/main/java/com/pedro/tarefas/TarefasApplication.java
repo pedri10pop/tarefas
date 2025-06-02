@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import com.pedro.tarefas.enums.Status;
 import com.pedro.tarefas.model.Tarefa;
@@ -17,6 +18,7 @@ public class TarefasApplication {
 	}
 
 	@Bean
+	@Profile("dev")
 	CommandLineRunner initDatabase(TarefasRepository tarefasRepository) {
 		return args -> {
 			tarefasRepository.deleteAll();
