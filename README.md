@@ -1,13 +1,19 @@
+# Tarefas API
 
-## Developers
+## Desenvolvedores
 
-Initially, to generate the Docker container with the MySQL database, run (in the project directory):
+Inicialmente, para gerar o container Docker com o banco de dados MySQL, execute (no diretório do projeto):
 
 ```docker compose up -d```
 
-To start the application for development, run (in the project directory):
+Para iniciar a aplicação em modo de desenvolvimento, execute (no diretório do projeto):
 
 ```mvn spring-boot:run```
 
-The application will create a new table in the database and populate it with 4 tasks.
-If you do not want this to happen, remove the `initDatabase` method from `TarefasApplication.java`.
+A aplicação irá criar uma nova tabela no banco de dados e populá-la com 4 tarefas.
+Se você não quiser que isso aconteça, remova o método `initDatabase` de `TarefasApplication.java`.
+
+### Swagger
+
+esta aplicação possui os endpoint documentado no swagger, para acessa-lo inicia a aplicação e acesse
+```http://localhost:8080/swagger-ui/index.html```
